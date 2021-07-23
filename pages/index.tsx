@@ -12,8 +12,6 @@ type Props = {
 }
 
 const Index: React.FunctionComponent<Props> = ({ allProjects, preview }: Props) => {
-  console.log(allProjects)
-
   return (
     <div className="h-screen min-h-screen flex justify-center items-center">
       <Head>

@@ -5,18 +5,11 @@
  */
 import { createClient } from 'next-sanity'
 import { sanityConfig } from './config'
+import ProjectType from 'types/project'
 
-export const sanityClient = createClient(sanityConfig)
+type Docs = ProjectType[]
 
-export const previewClient = createClient({
-  ...sanityConfig,
-  useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
-})
-
-export const getClient = (preview) => (preview ? previewClient : sanityClient)
-
-export function overlayDrafts(docs) {
+export const overlayDrafts = (docs: Docs): Docs => {
   const documents = docs || []
   const overlayed = documents.reduce((map, doc) => {
     if (!doc._id) {
@@ -30,3 +23,13 @@ export function overlayDrafts(docs) {
 
   return Array.from(overlayed.values())
 }
+
+export const sanityClient = createClient(sanityConfig)
+export const previewClient = createClient({
+  ...sanityConfig,
+  useCdn: false,
+  token: process.env.SANITY_API_TOKEN,
+})
+
+export const getClient = (preview: boolean): typeof sanityClient =>
+  preview ? previewClient : sanityClient

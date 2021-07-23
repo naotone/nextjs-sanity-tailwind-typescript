@@ -20,11 +20,11 @@ export const projectQuery = `
   }
 }`
 
-export const postSlugsQuery = `
+export const projectSlugsQuery = `
 *[_type == "projects" && defined(slug.current)][].slug.current
 `
 
-export const postBySlugQuery = `
+export const projectBySlugQuery = `
 *[_type == "projects" && slug.current == $slug][0] {
   ${projectFields}
 }
